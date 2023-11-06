@@ -10,11 +10,12 @@ import string
 
 def check_text(cmd, words):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
-    # out = result.stdout.rstrip(string.punctuation)
-    out = result.stdout.translate(str.maketrans('', '', string.punctuation)).split('\n')
+    temp = result.stdout
+    for p in string.punctuation:
+        if p in temp:
+            temp = temp.replace(p, ' ')
     if result.returncode == 0:
-        #for _ in out:
-        if words in out:
+        if words in temp:
             return True
         else:
             return False
@@ -22,6 +23,6 @@ def check_text(cmd, words):
 
 
 if __name__ == '__main__':
-    print(check_text('ls /home/user', 'Страница справки по GNU'))
-    print(check_text('rm --help', 'preserve'))
-    print(check_text('cat /etc/os-release', 'ID'))
+    print(check_text('ls /home/user', 'snap'))
+    print(check_text('rm --help', 'fooo'))
+    print(check_text('cat /etc/os-release', 'LIKE'))
