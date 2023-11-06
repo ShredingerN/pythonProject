@@ -7,15 +7,20 @@
 import subprocess
 import string
 
+
 def check_text(cmd, words):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
-    out = result.stdout
-    if result.returncode == 0 and words in result.stdout:
-        return True
-    else:
-        return False
+    out = result.stdout.rstrip(string.punctuation)
+    if result.returncode == 0:
+        for _ in out:
+            if words in out:
+                return True
+        else:
+            return False
+    return f'wrong command{cmd}'
 
 
 if __name__ == '__main__':
     print(check_text('ls /home/user', 'Страница справки по GNU'))
-    print(check_text('rm --help', 'Страница справки по GNU'))
+    print(check_text('rm --help', 'Страница'))
+    print(check_text('cat /etc/os-release', 'ID_LIKE'))

@@ -18,3 +18,4 @@ def check_text(cmd, text):
 if __name__ == '__main__':
     print(check_text('ls /home/user', 'Страница справки по GNU'))
     print(check_text('rm --help', 'Страница справки по GNU'))
+    print(check_text('cat /etc/os-release', 'Страница'))
