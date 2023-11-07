@@ -9,11 +9,13 @@ import subprocess
 
 def check_text(cmd, text):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
-    if result.returncode == 0 and text in result.stdout:
-        return True
-    else:
-        return False
-
+    if result.returncode == 0:
+        out = result.stdout
+        if text in out:
+            return True
+        else:
+            return False
+    return f'wrong command: {cmd}'
 
 if __name__ == '__main__':
     print(check_text('ls /home/user', 'Страница справки по GNU'))
