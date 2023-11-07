@@ -29,8 +29,8 @@ def test_step1():
 
 # ДЗ. Тест для сравнения полученных хэшей
 def test1_hash():
-    res1 = hash_func('cd {}; crc32 arx2.7z'.format(out)).upper()
-    res2 = hash_func('cd {}; 7z h arx2.7z'.format(out))
+    result1 = hash_func('cd {}; crc32 arx2.7z'.format(out)).upper()
+    result2 = hash_func('cd {}; 7z h arx2.7z'.format(out))
     assert res1 in res2, 'test1_hash Fail'
 
 
