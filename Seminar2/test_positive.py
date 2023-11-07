@@ -1,5 +1,4 @@
 import subprocess
-import pytest
 
 tst = '/home/user/Test7z/tst'
 out = '/home/user/Test7z/out'
@@ -15,13 +14,26 @@ def checkout(cmd, text):
         return False
 
 
+# ДЗ. Добавила функцию для сохранения вывода команды(в данном случае хэша)
+def hash_func(cmd):
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
+    hash_file = result.stdout
+    return hash_file
+
+
 def test_step1():
     result1 = checkout('cd {}; 7z a {}/arx2'.format(tst, out), 'Everything is Ok')
     result2 = checkout('cd {}; ls'.format(out), 'arx2.7z')
     assert result1 and result2, 'test1 Fail'
 
 
-@pytest.mark.run_this
+# ДЗ. Тест для сравнения полученных хэшей
+def test1_hash():
+    res1 = hash('cd {}; crc32 arx2.7z'.format(out))
+    res2 = hash('cd {}; 7z h arx2.7z'.format(out))
+    assert res1 and res2, 'test1_hash Fail'
+
+
 def test_step2():
     result1 = checkout('cd {}; 7z e arx2.7z -o{} -y'.format(out, folder1), 'Everything is Ok')
     result2 = checkout('cd {}; ls'.format(folder1), 'qwe')
