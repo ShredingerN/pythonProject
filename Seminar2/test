@@ -1,0 +1,29 @@
+import subprocess
+import pytest
+
+# ... (ваш существующий код)
+
+# ДЗ
+def test_step10():
+    file_path = '/home/user/out/arx2.7z'
+    
+    # Рассчитываем CRC32 хеш с помощью утилиты crc32
+    crc32_result = subprocess.run(f'crc32 {file_path}', shell=True, stdout=subprocess.PIPE, encoding='utf-8')
+    crc32_result = crc32_result.stdout.strip().upper()  # Убираем лишние пробелы и приводим к верхнему регистру
+
+    # Запускаем 7z и получаем хеш с помощью команды 7z
+    cmd = f'7z h {file_path}'
+    output = subprocess.getoutput(cmd)
+    
+    # Извлекаем CRC32 хеш из вывода команды 7z
+    lines = output.splitlines()
+    for line in lines:
+        if "CRC32 hash" in line:
+            parts = line.split(":")
+            if len(parts) == 2:
+                crc32_7z = parts[1].strip().upper()
+                break
+    else:
+        pytest.fail("CRC32 hash not found in 7z output")
+
+    assert crc32_result == crc32_7z, 'test10 FAIL'
