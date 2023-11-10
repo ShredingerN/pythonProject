@@ -2,7 +2,7 @@ import string
 import random
 import pytest
 import yaml
-from Seminar2.checkers import checkout
+from checkers import checkout
 
 with open('config.yaml') as f:
     data = yaml.safe_load(f)
@@ -36,3 +36,21 @@ def clear_folder():
 def make_bad_arx():
     checkout('cd {}; 7z a{}/bad_arx'.format(data['folder_in'], data['folder_out']), 'Everything is Ok')
     checkout('truncate -s 1 {}/bad_arx.7z'.format( data['folder_out']), '')
+
+
+# @pytest.fixture()
+# def make_subfolder():
+#     testfilename = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+#     subfoldername = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+#     if not checkout('cd {}; mkdir {}'.format(data['folder_in'], subfoldername), ''):
+#         return None, None
+#     if not checkout('cd {}/{}; dd if=/dev/urandom of={} bs=1M count=1 iflag=fullblock'.format(data['folder_in'], subfoldername, testfilename), ''):
+#         return subfoldername, None
+#     else:
+#         return subfoldername, testfilename
+#
+# @pytest.fixture(autouse=True)
+# def print_time():
+#     print('Start: {}'.format(datetime.now().strftime('%H:%M:%S.%f')))
+#     yield
+#     print('Finish: {}'.format(datetime.now().strftime('%H:%M:%S.%f')))

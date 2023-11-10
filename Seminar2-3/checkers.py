@@ -10,9 +10,7 @@ def checkout(cmd, text):
 
 # ДЗ. Добавила функцию для сохранения вывода команды(в данном случае хэша)
 def hash_func(cmd):
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
-    hash_file = result.stdout
-    return hash_file
+    return subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8').stdout
 
 def checkout_negative(cmd, text):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
