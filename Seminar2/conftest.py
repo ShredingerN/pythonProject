@@ -2,7 +2,7 @@ import string
 import random
 import pytest
 import yaml
-from Seminar2.checkers import checkout
+from checkers import checkout
 
 with open('config.yaml') as f:
     data = yaml.safe_load(f)
