@@ -119,4 +119,57 @@ class TestPositive:
         assert all(res), 'test6 FAIL'
 
     def test_step7(self):
-        assert checkout('cd {}; 7z d arx2.7z'.format(data['folder_out']), 'Everything is Ok'), 'test7 Fail'
+        assert checkout('cd {}; 7z d arx2.7z'.format(data['folder_out']), 'Everything is Ok')
+
+
+
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,00635244 s, 165 MB/s
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,00676664 s, 155 MB/s
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,00572775 s, 183 MB/s
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,0105262 s, 99,6 MB/s
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,00810547 s, 129 MB/s
+1+0 записей получено
+1+0 записей отправлено
+1048576 байт (1,0 MB, 1,0 MiB) скопирован, 0,00594097 s, 176 MB/s
+FAILED                        [ 87%]
+ERROR: No more files
+arx2.7x
+
+
+
+System ERROR:
+Неизвестная ошибка -2147024872
+ls: невозможно получить доступ к '/home/user/Test7z/folder2/N4JMJ': Нет такого файла или каталога
+
+test_positive.py:54 (TestPositive.test_step6)
+self = <test_positive.TestPositive object at 0x7f265e2d8d60>
+clear_folder = True, make_files = ['RWRLM', 'TL8GR', 'FBDVD', 'VKABV', '0R6XD']
+make_subfolder = ('N4JMJ', 'FVIAR')
+
+    def test_step6(self,clear_folder, make_files, make_subfolder):
+        # test6
+        res = []
+        res.append(checkout('cd {}; 7z a {}/arx2'.format(data['folder_in'], data['folder_out']),
+                            'Everything is Ok'))
+        res.append(checkout('cd {}; 7z x arx2.7x -o{} -y'.format(data['folder_out'], data['folder_ext2']),
+                            'Everything is Ok'))
+        for i in make_files:
+            res.append(checkout('ls {}'.format(data['folder_ext2']), i))
+        res.append(checkout('ls {}'.format(data['folder_ext2']), make_subfolder[0]))
+        res.append(checkout('ls {}/{}'.format(data['folder_ext2'], make_subfolder[0]), make_subfolder[1]))
+>       assert all(res), 'test6 FAIL'
+E       AssertionError: test6 FAIL
+E       assert False
+E        +  where False = all([True, False, False, False, False, False, ...])
+
+test_positive.py:66: AssertionError
