@@ -93,7 +93,7 @@ def deploy():
     print(f'{res}')
     return all(res)
 
-
+#ДЗ №4 Установка crc32
 @pytest.fixture(autouse=True, scope='module')
 def deploy_apt():
     res = []
